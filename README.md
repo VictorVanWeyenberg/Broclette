@@ -1,4 +1,4 @@
-#Verfassung der Broclette
+# Verfassung der Broclette
 
 ## Titel I: Broclette, zijn stichting en zijn frequentie
 
