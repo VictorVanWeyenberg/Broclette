@@ -1,2 +1,2 @@
-Online hostable versie van het wetboek der Brocletters.
+[GitHub Pages - Online Version](https://victorvanweyenberg.github.io/Broclette/introduction.html)
 
