@@ -1,0 +1,326 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title></title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="titel-i-broclette-zijn-stichting-en-zijn-frequentie"><a class="header" href="#titel-i-broclette-zijn-stichting-en-zijn-frequentie">Titel I: Broclette, zijn stichting en zijn frequentie</a></h1>
+<p><strong>Artikel 1</strong> De eerste Broclette vond plaats op 9 november 2014.</p>
+<p><strong>Artikel 1 bis</strong> De eerste Second Broclette vond plaats op 25 juni 2022.</p>
+<p><strong>Artikel 2</strong> Broclette vindt jaarlijks plaats rond 19 november.</p>
+<p><strong>Artikel 2 bis</strong> Second Broclette vindt jaarlijks plaats rond 19 mei.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="titel-ii-het-regelement-van-broclette"><a class="header" href="#titel-ii-het-regelement-van-broclette">Titel II: Het regelement van Broclette</a></h1>
+<ul>
+<li><a href="title_ii_ch_i.html">Hoofdstuk I: De Geboden</a></li>
+<li><a href="title_ii_ch_ii.html">Hoofdstuk II: De Regels</a></li>
+<li><a href="title_ii_ch_iii.html">Hoofdstuk III: Strafmaat</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="hoofdstuk-i-de-geboden"><a class="header" href="#hoofdstuk-i-de-geboden">Hoofdstuk I: De Geboden</a></h1>
+<p><strong>Artikel 3</strong> De kaas is Zwitsers.</p>
+<p><strong>Artikel 3 bis</strong> Doorheen het jaar is enkel het eten van Zwitserse Raclette toegestaan.</p>
+<p><strong>Artikel 3 ter</strong> Niet-Zwitserse raclette voorschotelen is verboden. Schending van Artikel 3 ter levert 2 strafpunten op.</p>
+<p><strong>Artikel 4</strong> Alleen das Holzschüfeli is toegestaan in das Raclettepfännchen.</p>
+<p><strong>Artikel 5</strong> Alleen das Kartoffelgabel is toegestaan in das Kartoffelkörbchen.</p>
+<p><strong>Artikel 6</strong> U zal das Raclette-Öfen niet met kaas beroeren.</p>
+<p><strong>Artikel 6 bis</strong> Het niet beroeren van het warmte-element is een gebod. Het niet beroeren van het ijzer is een regel.</p>
+<p><strong>Artikel 7</strong> Afzegging zonder geldige rede is strafbaar.</p>
+<p><strong>Artikel 7 bis</strong> Geldige redenen zijn ziekte met doktersbriefje, sterfte of werk.</p>
+<p><strong>Artikel 8</strong> Voorgaande de Broclette dient het officieel inwijdingsritueel te gebeuren. Volgende elementen dienen uitgevoerd te worden: - er dient een gesloten cirkel gevormd te worden rond das Raclette-Öfen. - het Zwitsers volkslied dient te weerklinken. - de gril dient te worden geolied met een Zwitsers kruis.</p>
+<p><strong>Artikel 9</strong> Na de maaltijd dient er geen raclette meer op het bord te zijn.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="hoofdstuk-ii-de-regels"><a class="header" href="#hoofdstuk-ii-de-regels">Hoofdstuk II: De Regels</a></h1>
+<p><strong>Artikel 10</strong> Triple Raclette is verboden.</p>
+<p><strong>Artikel 11</strong> Na de maaltijd dient het bord leeg te zijn.</p>
+<p><strong>Artikel 12</strong> Hunkar zal één week voor Broclette plaatsvinden.</p>
+<p><strong>Artikel 13</strong> Splitwise inbrengen tot en met de dag van Hunkar.</p>
+<p><strong>Artikel 13 bis</strong> Met uitzondering van de kosten van de plaatsvindende Hunkar en Broclette</p>
+<p><strong>Artikel 14</strong> Betalen van splitwise voor Broclette.</p>
+<p><strong>Artikel 14 bis</strong> Met uitzondering van de kosten van de plaatsvindende Hunkar en Broclette</p>
+<p><strong>Artikel 15</strong> Verboden de koebel te negeren tijdens stemmingen.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="hoofdstuk-iii-strafmaat"><a class="header" href="#hoofdstuk-iii-strafmaat">Hoofdstuk III: Strafmaat</a></h1>
+<p><strong>Artikel 16</strong> §1 De toekenning en verwijdering van strafpunten gebeurt door de Oberst.</p>
+<p>§2 Voor het schenden van een gebod worden 2 strafpunten toegekend.</p>
+<p>§3 Voor het schenden van een regel wordt 1 strafpunt toegekend.</p>
+<p>§4 Door het uitvoeren van één van onderstaande testen kan een strafpunt verbeurd verklaard worden. 1° Uit drie kazen via smaak de Zwitserse kaas kunnen aanduiden. 2° Uit drie trivia vragen over Zwitserland, twee correct kunnen beantwoorden. 3° Het Zwitserse volkslied zingen, indien deze test al eens uitgevoerd is door deze persoon dient deze een extra couplet te zingen.<br />
+Deze testen kunnen enkel tijdens Broclette uitgevoerd worden en enkel indien aan volgende voorwaarden voldaan wordt: 1° De persoon heeft minder dan 3 strafpunten 2° De persoon heeft de gewenste test doorgegeven op Hunkar.</p>
+<p>§5 Bij het vergaren van 3 of meer strafpunten dient de persoon op de volgende Hunkar één van volgende straffen te selecteren. 1° De eerst volgende Broclette uitzitten 2° De eerst volgende Broclette financieren 3° Aanwezig zijn bij de eerst volgende Broclette, maar niet deelnemen aan de maaltijd. Na het uitvoeren van deze bestraffing worden drie strafpunten verbeurd verklaard.</p>
+<p><strong>Artikel 16 bis</strong> Brocletters afwezig op Hunkar mogen de gewenste test doorgeven tot en met de dag na Hunkar.</p>
+<p><strong>Atrikel 16 ter</strong> De betalers verdelen de prijs van 1 Broclette onder elkaar. Vervolgens brengen de betalers een schuld aan in splitwise naar de Broclette Pot account zodat ze elk 1 volledige Broclette betaald hebben. Deze schuld moet niet vereffend worden tegen Broclette. Als er een half jaar niks met dat kapitaal gebeurt, wordt het opnieuw gebruikt voor Broclette.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="titel-iii-de-brocletters-en-hun-rechten"><a class="header" href="#titel-iii-de-brocletters-en-hun-rechten">Titel III: De Brocletters en hun rechten</a></h1>
+<p><strong>Artikel 17</strong> Er zijn zeven rangen, in volgorde van hoog naar laag zijn dit: Oberst, Oberstleutnant, Feldweibel, Hauptwachtmeister, Wachtmeister, Hellebardier en Racler.</p>
+<p><strong>Artikel 18</strong> De rang Oberst werd toegekend aan Flurin Heughebaert.</p>
+<p><strong>Artikel 18 bis</strong> De Oberst regelt de planning van Broclette, rekening houdend met “Titel I: Broclette, zijn stichting en zijn frequentie” en dient ervoor te zorgen dat zo veel mogelijk Brocletters aanwezig kunnen zijn.</p>
+<p><strong>Artikel 19</strong> De rang Racler wordt enkel toegekend aan personen die nog geen volwaardig Brocletter zijn.</p>
+<p><strong>Artikel 20</strong> §1 De overige rangen worden toegekend op basis van het aantal aanwezigheden op Broclettes, des te meer aanwezigheden des te hoger de rang.</p>
+<p>§2 Indien twee Brocletters dezelfde hoeveelheid aanwezigheden hebben, dient er vergeleken te worden hoeveel jaren de personen al aan Broclette doen. De Brocletter met het hoogste aantal jaar krijgt de hogere rang. Indien het aantal jaar alsook hetzelfde is, krijgen beide Brocletters dezelfde rang.</p>
+<p>§3 Personen met dezelfde rang worden onderscheiden aan de hand van welke Brocletter als eerste het aantal jaar en aanwezigheden behaald heeft. Deze Brocletter is dan erster klasse in zijn rang, de tweede Brocletter is dan zweiter klasse in zijn rang en zo verder.</p>
+<p><strong>Artikel 21</strong> Brocletters dienen aan tafel plaats te nemen in volgorde van rang. De volgorde is van hoogste rang naar laagste rang.</p>
+<p><strong>Artikel 22</strong> Eretitels kunnen worden toegekend aan mensen die bijzondere diensten verleend hebben aan Broclette.</p>
+<p><strong>Artikel 22 bis</strong> Brocletters mogen geen eretitels voor zichzelf voorstellen. Titels moeten uniek en complementair zijn. Een Brocletter kan maximaal 3 titels bezitten.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="titel-iv-tagsatzung"><a class="header" href="#titel-iv-tagsatzung">Titel IV: Tagsatzung</a></h1>
+<p><strong>Artikel 23</strong> Elke Broclette vind een Tagsatzung plaats waarop aanpassingen aan de Verfassung gestemd kunnen worden.</p>
+<p><strong>Artikel 23 bis</strong> Een extra Tagsatzung kan buiten Broclette plaatsvinden indien de zes hoogste rangen hier unaniem voor stemmen.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="hoofdstuk-i-agenda"><a class="header" href="#hoofdstuk-i-agenda">Hoofdstuk I: Agenda</a></h1>
+<p><strong>Artikel 24</strong> Agendapunten kunnen tot en met de dag van Hunkar aangebracht worden.</p>
+<p><strong>Artikel 25</strong> Enkel agendapunten die op voorhand aangebracht worden kunnen besproken worden.</p>
+<p><strong>Artikel 25 bis</strong> Een agendapunt kan toegevoegd worden na unanieme stemming.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="hoofdstuk-ii-stemmingen"><a class="header" href="#hoofdstuk-ii-stemmingen">Hoofdstuk II: Stemmingen</a></h1>
+<p><strong>Artikel 26</strong> De Oberst leidt de stemmingen. De Oberst kan een Brocletter een maximale spreektijd opleggen van een minuut als een agendapunt te lang duurt en deze spreektijd bewaken met een koebel.</p>
+<p><strong>Artikel 27</strong> Enkel Brocletters met een rang hoger dan Racler mogen stemmen.</p>
+<p><strong>Artikel 28</strong> Stemmen gebeurt via een gekwalificeerde meerderheid, er zijn de helft plus één stem nodig voor een goedkeuring. Tenzij op aanpassingen voor “Titel I: Broclette, zijn stichting en zijn frequentie” en “Hoofdstuk I: De geboden”, hierbij is een unanieme stemming nodig.</p>
+<p><strong>Artikel 29</strong> Er kan een tweede maal gestemd worden op een agendapunt, indien er een aanpassing aan het voorstel gebeurd.</p>
+<p><strong>Artikel 30</strong> Eenmaal per jaar kan de Oberst gebruik maken van een Veto, hierbij telt zijn stem dubbel. Dit op voorwaarde dat één Broclette per jaar door de Oberst betaald wordt.</p>
+<p><strong>Artikel 31</strong> Goedgekeurde aanpassingen zijn geldend vanaf de volgende Broclette.</p>
+<p><strong>Artikel 32</strong> De Oberstleutnant past de goedgekeurde aanpassingen aan binnen de twee weken na de Tagsetzung.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="titel-v-raclette-maaltijd"><a class="header" href="#titel-v-raclette-maaltijd">Titel V: Raclette maaltijd</a></h1>
+<p><strong>Artikel 33</strong> De maaltijd bestaat uit: 1° Zwitsere Raclette 2° Cornichons 3° Zilverajuintjes 4° Aardappelen 5° Ajuin 6° Champignons 7° Paprika 8° Vlees van betere kwaliteit 9° Brood 10° Pepersaus.</p>
+<p><strong>Artikel 34</strong> Na de maaltijd kan er een speciale stemming ingeroepen worden indien er geen kaas meer is. Indien er in unaniem stemming zonder de Oberst bevonden wordt dat er te weinig kaas besteld is geweest, verliest de Oberst zijn Veto en krijgt hij een strafpunt.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="titel-vi-toetreding"><a class="header" href="#titel-vi-toetreding">Titel VI: Toetreding</a></h1>
+<p><strong>Artikel 35</strong> Elke Brocletter kan een nieuw lid voordragen.</p>
+<p><strong>Artikel 36</strong> Indien het kandidaat lid unaniem goedgekeurd wordt, krijgt deze de rang Racler.</p>
+<p><strong>Artikel 37</strong> De Racler dient een proefperiode van twee Broclettes te doorlopen. Waarbij er minimaal één Hunkar bijgewoond dient te worden.</p>
+<p><strong>Artikel 38</strong> Bij de bijgewoonde Hunkars dient een Racler de bestelling te doen alsook het ophalen van het eten.</p>
+<p><strong>Artikel 39</strong> Voor het begin van de Broclette dient de Racler de kaas te gaan afhalen. Bij de bijgewoonde Broclettes dient een Racler te tafel te dekken alsook de groenten te snijden.</p>
+<p><strong>Artikel 40</strong> Tijdens de laatste Broclette van de proefperiode wordt er gestemd om het kandidaat lid officieel te laten toetreden tot de Brocletters. Er is een unanieme goedkeuring nodig.</p>
+<p><strong>Artikel 40 bis</strong> Na de unanieme goedkeuring wordt de racler onmiddelijk een Hellebardier. Op dat moment heeft die ook dezelfde rechten en plichten als een Brocletter. Op de eerst volgende Broclette waarop die persoon aanwezig is, wordt deze persoon ingehuldigd d.m.v. de inhuldigingsceremonie.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="statistieken"><a class="header" href="#statistieken">Statistieken</a></h1>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Naam</th><th style="text-align: center">Broclette jaren</th><th style="text-align: center">Aantal Broclettes</th><th style="text-align: center">Rang</th><th style="text-align: center">Strafpunten</th><th style="text-align: center">Lifetime strafpunten</th></tr></thead><tbody>
+<tr><td style="text-align: center">Flurin</td><td style="text-align: center">11</td><td style="text-align: center">14</td><td style="text-align: center">Oberst</td><td style="text-align: center">0</td><td style="text-align: center">0</td></tr>
+<tr><td style="text-align: center">Victor</td><td style="text-align: center">11</td><td style="text-align: center">14</td><td style="text-align: center">Oberstleutnant</td><td style="text-align: center">0</td><td style="text-align: center">0</td></tr>
+<tr><td style="text-align: center">Duncan</td><td style="text-align: center">10</td><td style="text-align: center">13</td><td style="text-align: center">Feldweibel</td><td style="text-align: center">2</td><td style="text-align: center">5</td></tr>
+<tr><td style="text-align: center">Loïc</td><td style="text-align: center">9</td><td style="text-align: center">12</td><td style="text-align: center">Hauptwachtmeister</td><td style="text-align: center">0</td><td style="text-align: center">6</td></tr>
+<tr><td style="text-align: center">Raymond</td><td style="text-align: center">8</td><td style="text-align: center">11</td><td style="text-align: center">Wachtmeister</td><td style="text-align: center">1</td><td style="text-align: center">5</td></tr>
+<tr><td style="text-align: center">Arjet</td><td style="text-align: center">7</td><td style="text-align: center">9</td><td style="text-align: center">Hellebardier</td><td style="text-align: center">4</td><td style="text-align: center">10</td></tr>
+<tr><td style="text-align: center">Yentl</td><td style="text-align: center">2</td><td style="text-align: center">2</td><td style="text-align: center">Hellebardier</td><td style="text-align: center">0</td><td style="text-align: center">0</td></tr>
+<tr><td style="text-align: center">Tuur</td><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">Racler</td><td style="text-align: center">2</td><td style="text-align: center">2</td></tr>
+</tbody></table>
+</div>
+<h2 id="strafpunten-log"><a class="header" href="#strafpunten-log">Strafpunten log</a></h2>
+<h3 id="2023"><a class="header" href="#2023">2023</a></h3>
+<p>Broeders Duncan en Raymond kregen twee strafpunten voor het bevuilen van het altaar.</p>
+<p>Broeder Loïc kreeg twee strafpunten voor het bevuilen van het altaar. Hij kreeg daarboven nog een strafpunt voor met een vork in de kartoffelkorbchen te zitten.</p>
+<p>Racler Tuur kreeg 2 strafpunten voor het bevuilen van het altaar.</p>
+<h3 id="2024"><a class="header" href="#2024">2024</a></h3>
+<p><em>Tweede Broclette</em></p>
+<p>Broeder Raymond heeft één strafpunt weggespeeld d.m.v. de kaasproeftest.</p>
+<p>Broeder Loïc, Duncan en Raymond kregen elk 2 strafpunten voor het bevuilen van het altaar.</p>
+<p><em>Eerste Broclette</em></p>
+<p>Broeder Raymond heeft één strafpunt gekregen voor het bevuilen van het altaar.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="cognomen"><a class="header" href="#cognomen">Cognomen</a></h1>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Naam</th><th style="text-align: center">Volledige aanspreking</th></tr></thead><tbody>
+<tr><td style="text-align: center">Flurin</td><td style="text-align: center">Oberst Flurin</td></tr>
+<tr><td style="text-align: center">Victor</td><td style="text-align: center">Oberstleutnant Victor, Bleitende Vuurheer</td></tr>
+<tr><td style="text-align: center">Duncan</td><td style="text-align: center">Feldweibel Duncan</td></tr>
+<tr><td style="text-align: center">Loïc</td><td style="text-align: center">Hauptwachtmeister Loïc, Hunkar Hunk</td></tr>
+<tr><td style="text-align: center">Raymond</td><td style="text-align: center">Wachtmeister Raymond</td></tr>
+<tr><td style="text-align: center">Arjet</td><td style="text-align: center">Hellebardier Arjet</td></tr>
+<tr><td style="text-align: center">Yentl</td><td style="text-align: center">Hellebardier Yentl</td></tr>
+<tr><td style="text-align: center">Tuur</td><td style="text-align: center">Racler Tuur</td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>
