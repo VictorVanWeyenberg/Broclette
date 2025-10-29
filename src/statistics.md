@@ -2,13 +2,13 @@
 
 |  Naam   | Broclette jaren | Aantal Broclettes |       Rang        | Strafpunten | Lifetime strafpunten |
 | :-----: | :-------------: | :---------------: | :---------------: | :---------: | :------------------: |
-| Flurin  |       11        |        14         |      Oberst       |      0      |          0           |
-| Victor  |       11        |        14         |  Oberstleutnant   |      0      |          0           |
-| Duncan  |       10        |        13         |    Feldweibel     |      2      |          5           |
-|  Loïc   |        9        |        12         | Hauptwachtmeister |      0      |          6           |
-| Raymond |        8        |        11         |   Wachtmeister    |      1      |          5           |
+| Flurin  |       11        |        15         |      Oberst       |      0      |          0           |
+| Victor  |       11        |        15         |  Oberstleutnant   |      0      |          0           |
+| Duncan  |       10        |        14         |    Feldweibel     |      2      |          5           |
+|  Loïc   |        9        |        13         | Hauptwachtmeister |      0      |          6           |
+| Raymond |        8        |        12         |   Wachtmeister    |      1      |          5           |
 |  Arjet  |        7        |         9         |   Hellebardier    |      4      |          10          |
-|  Yentl  |        2        |         2         |   Hellebardier    |      0      |          0           |
+|  Yentl  |        2        |         3         |   Hellebardier    |      1      |          1           |
 |  Tuur   |        1        |         1         |      Racler       |      2      |          2           |
 ## Strafpunten log
 
@@ -31,3 +31,10 @@ Broeder Loïc, Duncan en Raymond kregen elk 2 strafpunten voor het bevuilen van 
 _Eerste Broclette_
 
 Broeder Raymond heeft één strafpunt gekregen voor het bevuilen van het altaar.
+
+
+### 2025
+
+*Tweede Broclette*
+
+Broeder Raymond is er niet in geslaagd om een strafpunt weg te werken.
