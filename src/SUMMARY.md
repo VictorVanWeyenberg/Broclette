@@ -20,3 +20,5 @@
 
 - [Statistieken](statistics.md)
 - [Cognomen](cognomen.md)
+- [Games](games.md)
+- [Blood Pacts](blood_pacts.md)
