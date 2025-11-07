@@ -8,7 +8,7 @@
 |  Loïc   |       10        |        14         | Hauptwachtmeister |      0      |          6           |
 | Raymond |        9        |        13         |   Wachtmeister    |      1      |          6           |
 |  Arjet  |        7        |         9         |   Hellebardier    |      4      |          10          |
-|  Yentl  |        2        |         4         |   Hellebardier    |      0      |          1           |
+|  Yentl  |        3        |         4         |   Hellebardier    |      0      |          1           |
 |  Tuur   |        1        |         1         |      Racler       |      2      |          2           |
 ## Strafpunten log
 
