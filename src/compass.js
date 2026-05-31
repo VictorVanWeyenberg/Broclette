@@ -53,7 +53,7 @@ function drawCompass(orientation) {
 
   const topArmTop = -(armWidth / 2 + armLength);
 
-  ctx.moveTo(0, topArmTop - tipHeight);           // tip (centered!)
+  ctx.moveTo(0, topArmTop - tipHeight);           // tip
   ctx.lineTo(armWidth / 2, topArmTop);            // top-right of top arm
   ctx.lineTo(armWidth / 2, -armWidth / 2);        // bottom-right of top arm
   ctx.lineTo(armWidth / 2 + armLength, -armWidth / 2);
@@ -66,7 +66,7 @@ function drawCompass(orientation) {
   ctx.lineTo(-(armWidth / 2 + armLength), -armWidth / 2);
   ctx.lineTo(-armWidth / 2, -armWidth / 2);       // bottom-left of top arm
   ctx.lineTo(-armWidth / 2, topArmTop);           // top-left of top arm
-  ctx.closePath();                                // closes to tip
+  ctx.closePath();
   ctx.fill();
 
   ctx.restore();
@@ -74,16 +74,14 @@ function drawCompass(orientation) {
 
 let currentPosition = null;
 
-// GPS: update slowly and independently
 navigator.geolocation.watchPosition((position) => {
   currentPosition = position.coords;
 }, null, {
   enableHighAccuracy: true,
-  maximumAge: 5000,    // accept cached position up to 5s old
+  maximumAge: 5000,
   timeout: 10000
 });
 
-// Orientation: fires fast, but just uses the last known position
 window.addEventListener('deviceorientationabsolute', (e) => {
   if (!currentPosition) return;
   const orientation = bearingToTarget(currentPosition, parseInt(e.alpha));
