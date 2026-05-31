@@ -1,0 +1,5 @@
+[book]
+title = "Broclette"
+
+[output.html]
+additional-js = ["src/compass.js"]
