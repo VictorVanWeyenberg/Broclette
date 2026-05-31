@@ -8,6 +8,7 @@ cvs.style.padding = "0px";
 cvs.style.display = "block";
 cvs.style.width = "100%";
 cvs.style.height = "100%";
+cvs.style.background = "#DA291C";
 cvs.parentElement.style.margin = "0px";
 cvs.parentElement.style.padding = "0px";
 
@@ -25,32 +26,28 @@ const WALLIS_LONGITUDE = 7.8046;
 function bearingToTarget(coords, orientation) {
   const toRad = deg => deg * Math.PI / 180;
   const toDeg = rad => rad * 180 / Math.PI;
-
-  const myLat = coords.latitude;
-  const myLon = coords.longitude;
-
-  const dLon = toRad(myLon - WALLIS_LONGITUDE);
-  const lat1 = toRad(myLat);
+  
+  const dLon = toRad(WALLIS_LONGITUDE - coords.longitude);
+  const lat1 = toRad(coords.latitude);
   const lat2 = toRad(WALLIS_LATITUDE);
-
+  
   const east  = Math.sin(dLon) * Math.cos(lat2);
   const north = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
+  
+  const absoluteBearing = (toDeg(Math.atan2(east, north)) + 360) % 360;
 
-  const absoluteBearing = (toDeg(Math.atan2(north, east)) + 360) % 360;
-
-  return (orientation - absoluteBearing + 360) % 360;
+  return (absoluteBearing - orientation + 360) % 360;
 }
 
 function drawCompass(orientation) {
-  const swissRed = '#DA291C';
   const armLength = 40;
   const armWidth = armLength / 7 * 6;
-  const tipHeight = armWidth / 2; // gives exactly 90° at the point
+  const tipHeight = armWidth / 2;
 
   ctx.save();
-  ctx.rotate((orientation * Math.PI) / 180);
+  ctx.rotate((-orientation * Math.PI) / 180);
 
-  ctx.fillStyle = swissRed;
+  ctx.fillStyle = "white";
   ctx.clearRect(-cvs.width/2, -cvs.height/2, cvs.width, cvs.height)
   ctx.beginPath();
 
