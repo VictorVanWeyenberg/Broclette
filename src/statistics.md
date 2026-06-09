@@ -51,6 +51,6 @@ Broeders Duncan en Raymond hebben elk een strafpunt bijgekregen voor het schende
 
 *Tweede Broclette*
 
-Broeders Duncanheeft een strafpunt weggewerkt door het proeven van kaas.
+Broeders Duncan heeft een strafpunt weggewerkt door het proeven van kaas.
 
 Een goed jaar. Er zijn geen strafpunten verworven.
