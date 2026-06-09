@@ -1,6 +1,6 @@
 # Titel VII: Het Nalatenschap
 
-**Artikel 41** Een Brocletter trakteert in diens laatste, informele testament één laatste Broclette aan diens Broeders.
+**Artikel 41** Een Brocletter trakteert in diens laatste, informele testament één laatste Broclette aan de overige Brocletters.
 
 **Artikel 41 bis** Bij overlijden vervallen de strafpunten van de Brocletter, indien aan artikel 41 is voldaan.
 
