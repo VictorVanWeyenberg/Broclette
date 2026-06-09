@@ -2,7 +2,7 @@
 
 **Artikel 41** Een Brocletter trakteert in diens laatste, informele testament één laatste Broclette aan diens Broeders.
 
-**Artikel 41 bis** Actieve strafpunten worden gekwijt daar deze Brocletter een een Broclette trakteert.
+**Artikel 41 bis** Bij overlijden vervallen de strafpunten van de Brocletter, indien aan artikel 41 is voldaan.
 
 **Artikel 42** De Brocletter behoudt diens titels post mortem.
 
