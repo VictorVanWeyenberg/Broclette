@@ -6,6 +6,4 @@
 
 **Artikel 42** Een Brocletter behoudt zijn eretitels in het hiernamaals, tot een waardige opvolger zich aandient.
 
-**Artikel 43** In heilige beeltenissen van één of meerdere Brocletters met de zes hoogte rangen, dienen zij met een vierkant pannetje afgebeeld te worden.
-
-**Artikel 43 bis** In heilige beeltenissen gemaakt na het overlijden van zo'n Brocletter, dient die afgebeeld te worden met een rond pannetje.
+**Artikel 43** Overleden Brocletters worden in beeltenissen weergegeven met een rond pannetje.
