@@ -16,7 +16,7 @@
 
 **Artikel 7** Afzegging zonder geldige rede is strafbaar.
 
-**Artikel 7 bis** Geldige redenen zijn ziekte met doktersbriefje, werk, sterfte van de Brocletter in kwestie, een dwingend sterfgeval van een niet-Brocletter of chronische ziekte.
+**Artikel 7 bis** De volgende redenen worden als geldig beschouwd. 1° Ziekte met doktersbriefje. 2° Verhindering door chronische ziekte. 3° Sterfte.
 
 **Artikel 8** Voorgaande de Broclette dient het officieel inwijdingsritueel te gebeuren. Volgende elementen dienen uitgevoerd te worden: - er dient een gesloten cirkel gevormd te worden rond das Raclette-Öfen. - het Zwitsers volkslied dient te weerklinken. - de gril dient te worden geolied met een Zwitsers kruis.
 
