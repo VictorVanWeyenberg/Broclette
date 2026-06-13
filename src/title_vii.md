@@ -4,7 +4,7 @@
 
 **Artikel 41 bis** Bij overlijden vervallen de strafpunten van de Brocletter, indien aan artikel 41 is voldaan.
 
-**Artikel 42** De Brocletter behoudt diens titels post mortem. De titel van de overleden Brocletter kan terug ingenomen worden door diens opvolger. (Ref. Titel III, Artikel 20)
+**Artikel 42** Een Brocletter behoudt zijn eretitels in het hiernamaals, tot een waardige opvolger zich aandient.
 
 **Artikel 43** In heilige beeltenissen van één of meerdere Brocletters met de zes hoogte rangen, dienen zij met een vierkant pannetje afgebeeld te worden.
 
