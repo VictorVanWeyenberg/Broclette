@@ -14,6 +14,7 @@
 	- [Hoofdstuk II: Stemmingen](title_iv_ch_ii.md)
 - [Titel V: Raclette maaltijd](title_v.md)
 - [Titel VI: Toetreding](title_vi.md)
+- [Titel VII: Het Nalatenschap](title_vii.md)
 
 ---
 # Status Quo
@@ -22,3 +23,4 @@
 - [Cognomen](cognomen.md)
 - [Games](games.md)
 - [Blood Pacts](blood_pacts.md)
+- [Compass](compass.md)

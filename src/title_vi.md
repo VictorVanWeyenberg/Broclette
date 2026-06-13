@@ -6,6 +6,8 @@
 
 **Artikel 37** De Racler dient een proefperiode van twee Broclettes te doorlopen. Waarbij er minimaal één Hunkar bijgewoond dient te worden.
 
+**Artikel 37 bis** Wanneer de Racler na het begin van de proefperiode afwezig is op twee opeenvolgende Broclettes, vervalt de lopende proefperiode en dient deze opnieuw te worden aangevat.
+
 **Artikel 38** Bij de bijgewoonde Hunkars dient een Racler de bestelling te doen alsook het ophalen van het eten.
 
 **Artikel 39** Voor het begin van de Broclette dient de Racler de kaas te gaan afhalen. Bij de bijgewoonde Broclettes dient een Racler te tafel te dekken alsook de groenten te snijden.
