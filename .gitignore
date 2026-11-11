@@ -1,3 +1,19 @@
 /.obsidian/
 /book
 index.html
+
+# Node & Capacitor
+node_modules/
+package
+
+# Android build outputs & local config
+android/.gradle/
+android/build/
+android/app/build/
+android/app/src/main/assets/public/
+android/app/src/main/assets/capacitor.config.json
+android/local.properties
+*.keystore
+*.jks
+*.apk
+broclette.apk

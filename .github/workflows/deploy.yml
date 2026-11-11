@@ -1,64 +1,218 @@
-name: Mdbook build
+name: Deploy and Release
 
 on:
   push:
     branches: ["main"]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (build APK without creating git tag or GitHub release)'
+        type: boolean
+        default: false
+      is_test_release:
+        description: 'Mark release as pre-release'
+        type: boolean
+        default: false
+      custom_tag:
+        description: 'Custom tag override (e.g. v26.1-test)'
+        type: string
+        required: false
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
 
 jobs:
+  # Job 1: Build mdBook static assets
   build:
-    name: build
+    name: Build Web Assets
     runs-on: ubuntu-latest
-    permissions:
-      contents: write  # To push a branch 
-      pull-requests: write  # To create a PR from that branch
     env:
       MDBOOK_VERSION: '0.4.45'
-      # MDBOOK_MERMAID_VERSION: '0.13.0'
     steps:
-    - uses: actions/checkout@v4
-      with:
-        submodules: false
-    - name: Install mdbook
-      env:
-        GH_TOKEN: ${{ github.token }}
-      run: |
-        mkdir ~/tools
-        curl -L https://github.com/rust-lang/mdBook/releases/download/v$MDBOOK_VERSION/mdbook-v$MDBOOK_VERSION-x86_64-unknown-linux-gnu.tar.gz | tar xz -C ~/tools
-        # curl -L https://github.com/badboy/mdbook-mermaid/releases/download/v$MDBOOK_MERMAID_VERSION/mdbook-mermaid-v$MDBOOK_MERMAID_VERSION-x86_64-unknown-linux-gnu.tar.gz | tar xz -C ~/tools
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-        gh release download -R Michael-F-Bryan/mdbook-linkcheck -p mdbook-linkcheck.x86_64-unknown-linux-gnu.zip
-        unzip mdbook-linkcheck.x86_64-unknown-linux-gnu.zip -d ~/tools
-        chmod +x ~/tools/mdbook-linkcheck
+      - name: Install mdbook and plugins
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir ~/tools
+          curl -L https://github.com/rust-lang/mdBook/releases/download/v$MDBOOK_VERSION/mdbook-v$MDBOOK_VERSION-x86_64-unknown-linux-gnu.tar.gz | tar xz -C ~/tools
 
-        gh release download -R zjp-CN/mdbook-theme -p mdbook-theme_linux.tar.gz
-        tar -xzf mdbook-theme_linux.tar.gz -C ~/tools
-        echo ~/tools >> $GITHUB_PATH
-    - name: Build 
-      run: mdbook build
+          gh release download -R Michael-F-Bryan/mdbook-linkcheck -p mdbook-linkcheck.x86_64-unknown-linux-gnu.zip
+          unzip mdbook-linkcheck.x86_64-unknown-linux-gnu.zip -d ~/tools
+          chmod +x ~/tools/mdbook-linkcheck
 
-    - name: Upload pages artifacts
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: book
+          gh release download -R zjp-CN/mdbook-theme -p mdbook-theme_linux.tar.gz
+          tar -xzf mdbook-theme_linux.tar.gz -C ~/tools
+          echo ~/tools >> $GITHUB_PATH
 
-  # Deploy job
-  deploy:
-    # Add a dependency to the build job
+      - name: Build mdBook
+        run: mdbook build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: book
+
+      - name: Upload Web artifact for Mobile packaging
+        uses: actions/upload-artifact@v4
+        with:
+          name: book-artifact
+          path: book
+          retention-days: 1
+
+  # Job 2: Deploy to GitHub Pages (runs in parallel with release-app)
+  deploy-pages:
+    name: Deploy to GitHub Pages
     needs: build
-
-    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
-    permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
-
-    # Deploy to the github-pages environment
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
-    # Specify runner + deployment step
-    runs-on: ubuntu-latest
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4 # or specific "vX.X.X" version tag for this action
+        uses: actions/deploy-pages@v4
+
+  # Job 3: Package Android App & Publish Release (runs in parallel with deploy-pages)
+  release-app:
+    name: Package and Release Android APK
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Accept Android SDK licenses
+        run: |
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses >/dev/null 2>&1 || true
+
+      - name: Download web artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: book-artifact
+          path: book
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Sync web assets to Capacitor
+        run: npx cap sync android
+
+      - name: Ensure launcher icons
+        run: |
+          if ! command -v magick >/dev/null 2>&1 && ! command -v convert >/dev/null 2>&1 && [ ! -f "android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" ]; then
+            sudo apt-get update && sudo apt-get install -y imagemagick
+          fi
+          ./scripts/generate-icons.sh
+
+      - name: Determine version and tag
+        id: versioning
+        run: |
+          git fetch --tags --force
+          YY=$(date +'%y')
+
+          CUSTOM_TAG="${{ inputs.custom_tag }}"
+          if [ -n "$CUSTOM_TAG" ]; then
+            TAG="$CUSTOM_TAG"
+            VER_NAME="${TAG#v}"
+            VER_CODE=$(date +'%s' | cut -c 5-10)
+          else
+            MAX_NUM=0
+            while IFS= read -r t; do
+              if [[ "$t" =~ ^v${YY}\.([0-9]+)$ ]]; then
+                num="${BASH_REMATCH[1]}"
+                if (( num > MAX_NUM )); then
+                  MAX_NUM=$num
+                fi
+              fi
+            done < <(git tag -l "v${YY}.*")
+
+            NEXT_NUM=$((MAX_NUM + 1))
+            TAG="v${YY}.${NEXT_NUM}"
+            VER_NAME="${YY}.${NEXT_NUM}"
+            VER_CODE=$((YY * 1000 + NEXT_NUM))
+          fi
+
+          echo "TAG=$TAG" >> $GITHUB_OUTPUT
+          echo "VERSION_NAME=$VER_NAME" >> $GITHUB_OUTPUT
+          echo "VERSION_CODE=$VER_CODE" >> $GITHUB_OUTPUT
+          echo "Selected release tag: $TAG (version: $VER_NAME, code: $VER_CODE)"
+
+      - name: Generate release keystore
+        id: keystore
+        run: |
+          KEYSTORE_PATH="${{ github.workspace }}/release.keystore"
+          KEYSTORE_PASS="broclette123"
+          KEY_ALIAS="broclette"
+
+          keytool -genkeypair -v \
+            -keystore "$KEYSTORE_PATH" \
+            -storepass "$KEYSTORE_PASS" \
+            -alias "$KEY_ALIAS" \
+            -keypass "$KEYSTORE_PASS" \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -dname "CN=Broclette, OU=Broclette, O=Broclette, L=Wallis, C=CH"
+
+          echo "KEYSTORE_PATH=$KEYSTORE_PATH" >> $GITHUB_OUTPUT
+          echo "KEYSTORE_PASS=$KEYSTORE_PASS" >> $GITHUB_OUTPUT
+          echo "KEY_ALIAS=$KEY_ALIAS" >> $GITHUB_OUTPUT
+
+      - name: Build signed Release APK
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleRelease \
+            -PRELEASE_STORE_FILE="${{ steps.keystore.outputs.KEYSTORE_PATH }}" \
+            -PRELEASE_STORE_PASSWORD="${{ steps.keystore.outputs.KEYSTORE_PASS }}" \
+            -PRELEASE_KEY_ALIAS="${{ steps.keystore.outputs.KEY_ALIAS }}" \
+            -PRELEASE_KEY_PASSWORD="${{ steps.keystore.outputs.KEYSTORE_PASS }}" \
+            -PAPP_VERSION_NAME="${{ steps.versioning.outputs.VERSION_NAME }}" \
+            -PAPP_VERSION_CODE="${{ steps.versioning.outputs.VERSION_CODE }}"
+
+          cp app/build/outputs/apk/release/app-release.apk ${{ github.workspace }}/broclette.apk
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: broclette-${{ steps.versioning.outputs.TAG }}
+          path: broclette.apk
+
+      - name: Create Git Tag and GitHub Release
+        if: ${{ !(inputs.dry_run) }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.versioning.outputs.TAG }}
+        run: |
+          PRERELEASE_FLAG=""
+          if [ "${{ inputs.is_test_release }}" = "true" ]; then
+            PRERELEASE_FLAG="--prerelease"
+          fi
+
+          RELEASE_NOTES=$(printf "Broclette %s\n\nDownload: [broclette.apk](https://github.com/%s/releases/download/%s/broclette.apk)" "$TAG" "${{ github.repository }}" "$TAG")
+
+          # Creates the git tag on the commit and publishes the release atomically
+          gh release create "$TAG" broclette.apk \
+            --title "Broclette $TAG" \
+            --notes "$RELEASE_NOTES" \
+            --target "${{ github.sha }}" \
+            $PRERELEASE_FLAG

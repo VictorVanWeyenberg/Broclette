@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Broclette</string>
+    <string name="title_activity_main">Broclette</string>
+    <string name="package_name">dev.cnpuvache.broclette</string>
+    <string name="custom_url_scheme">dev.cnpuvache.broclette</string>
+</resources>
