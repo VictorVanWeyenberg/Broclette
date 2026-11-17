@@ -2,13 +2,13 @@
 
 |  Naam   | Broclette jaren | Aantal Broclettes |       Rang        | Strafpunten | Lifetime strafpunten |
 | :-----: | :-------------: | :---------------: | :---------------: | :---------: | :------------------: |
-| Flurin  |       12        |        17         |      Oberst       |      0      |          0           |
-| Victor  |       12        |        17         |  Oberstleutnant   |      0      |          0           |
-| Duncan  |       11        |        16         |    Feldweibel     |      1      |          6           |
-|  Loïc   |       10        |        15         | Hauptwachtmeister |      0      |          6           |
-| Raymond |        9        |        14         |   Wachtmeister    |      1      |          6           |
+| Flurin  |       13        |        18         |      Oberst       |      0      |          0           |
+| Victor  |       13        |        18         |  Oberstleutnant   |      0      |          0           |
+| Duncan  |       12        |        17         |    Feldweibel     |      1      |          6           |
+|  Loïc   |       11        |        16         | Hauptwachtmeister |      0      |          6           |
+| Raymond |       10        |        15         |   Wachtmeister    |      1      |          6           |
 |  Arjet  |        7        |         9         |   Hellebardier    |      4      |          10          |
-|  Yentl  |        3        |         5         |   Hellebardier    |      0      |          1           |
+|  Yentl  |        4        |         6         |   Hellebardier    |      2      |          3           |
 |  Tuur   |        1        |         1         |      Racler       |      2      |          2           |
 ## Strafpunten log
 
@@ -54,3 +54,11 @@ Broeders Duncan en Raymond hebben elk een strafpunt bijgekregen voor het schende
 Broeders Duncan heeft een strafpunt weggewerkt door het proeven van kaas.
 
 Een goed jaar. Er zijn geen strafpunten verworven.
+
+*Eerste Broclette*
+
+Broeder Duncan had het volkslied niet voorbereid. Hij verliest geen strafpunt.
+
+Broeder Raymond maakte een fout in het zingen van het eerste couplet. Hij verliest geen strafpunt.
+
+Broeder Yentl krijgt twee strafpunten voor het consumeren van Franse raclette. 
