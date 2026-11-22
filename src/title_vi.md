@@ -4,6 +4,8 @@
 
 **Artikel 36** Indien het kandidaat lid unaniem goedgekeurd wordt, krijgt deze de rang Racler.
 
+**Artikel 36 bis** Een nazaat kan voorgedragen worden door diens voogd die reeds Brocletter is. Dan dient er geen unanieme stemming te zijn en krijgt de nazaat automatisch de rang van Racler.
+
 **Artikel 37** De Racler dient een proefperiode van twee Broclettes te doorlopen. Waarbij er minimaal één Hunkar bijgewoond dient te worden.
 
 **Artikel 37 bis** Wanneer de Racler na het begin van de proefperiode afwezig is op twee opeenvolgende Broclettes, vervalt de lopende proefperiode en dient deze opnieuw te worden aangevat.

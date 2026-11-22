@@ -4,7 +4,7 @@
 
 **Artikel 18** De rang Oberst werd toegekend aan Flurin Heughebaert.
 
-**Artikel 18 bis** De Oberst regelt de planning van Broclette, rekening houdend met “Titel I: Broclette, zijn stichting en zijn frequentie” en dient ervoor te zorgen dat zo veel mogelijk Brocletters aanwezig kunnen zijn.
+**Artikel 18 bis** De Oberst regelt de planning van Broclette, rekening houdend met [“Titel I: Broclette, zijn stichting en zijn frequentie”](title_i.md) en dient ervoor te zorgen dat zo veel mogelijk Brocletters aanwezig kunnen zijn.
 
 **Artikel 19** De rang Racler wordt enkel toegekend aan personen die nog geen volwaardig Brocletter zijn.
 
